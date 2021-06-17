@@ -1,4 +1,3 @@
-const AVATAR = [];
 const TITLE = ['Отель', 'Аппартаменты', 'Гостевой дом', 'Хостел'];
 const CHECKIN = ['12:00', '13:00', '14:00'];
 const CHECKOUT = ['12:00', '13:00', '14:00'];
@@ -8,7 +7,13 @@ const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/ke
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 const TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
-const objectCount = 10;
+const OBJECT_COUNT = 10;
+
+//author
+const avatars = [];
+for (let i = 1; i <= OBJECT_COUNT; i++) {(i < 10) ? avatars.push(`img/avatars/user0${i}.png`):
+  avatars.push(`img/avatars/user${i}.png`);
+}
 
 //Функции случайных чисел
 function getRandomNumber (min, max) {
@@ -33,35 +38,29 @@ function getRandomNumeral (min, max, fixed) {
 
 //Функция рандомного массива
 function createRandomArray (myArrayRandom) {
-  let offerElements = [];
+  const offerElements = [];
   const cloneArray = myArrayRandom.slice();
-  let size = getRandomNumber(1, myArrayRandom.length);
+  const size = getRandomNumber(1, myArrayRandom.length);
   for (let i= 1; i<= size; i++) {
-    let elementArray = cloneArray.pop();
+    const elementArray = cloneArray.pop();
     offerElements.push(elementArray);
   }
   return offerElements;
 }
 
 //Функция генерации элемента
-let getRandomElement = function (myArray) {
-  let key = Math.floor(Math.random() * myArray.length);
+const getRandomElement = function (myArray) {
+  const key = Math.floor(Math.random() * myArray.length);
   return myArray[key];
 };
 
-//author
-const avatarImg = 10;
-for (let i = 1; i <= avatarImg; i++) {(i < 10) ? AVATAR.push(`img/avatars/user0${i}.png`):
-  AVATAR.push(`img/avatars/user${i}.png`);
-}
-
 //Генерация объекта offer
-const createObjectOffer = function () {
-  let lat = getRandomNumeral(35.50000, 35.70000, 5);
-  let lng = getRandomNumeral(139.70000, 139.80000, 5);
+const createObjectOffer = function (index) {
+  const lat = getRandomNumeral(35.50000, 35.70000, 5);
+  const lng = getRandomNumeral(139.70000, 139.80000, 5);
   return {
     author: {
-      avatar: AVATAR.pop(),
+      avatar: avatars[index],
     },
     offer: {
       title: getRandomElement(TITLE),
@@ -84,6 +83,4 @@ const createObjectOffer = function () {
 };
 
 //Массив объектов
-const objectArray = new Array(objectCount).fill(null).map(() => createObjectOffer());
-
-let offer = createObjectOffer();
+new Array(OBJECT_COUNT).fill(null).map((value, i) => createObjectOffer(i));
