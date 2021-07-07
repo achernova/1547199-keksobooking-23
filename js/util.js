@@ -38,10 +38,18 @@ function createRandomArray (myArrayRandom) {
 }
 
 //Функция генерации элемента
-const getRandomElement = function (myArray) {
+
+/*const getRandomElement = function (myArray) {
   const key = Math.floor(Math.random() * myArray.length);
   return myArray[key];
+};*/
+
+const getRandomElement = (myArray) => {
+  const key = Math.floor(Math.random() * myArray.length);
+  return myArray[key];
+  if (key = 0 ) {}
 };
+
 
 //Генерация объекта offer
 const createObjectOffer = function (index) {

@@ -1,3 +1,5 @@
+import {getRandomElement} from './data.js';
+
 const TITLE = ['Отель', 'Аппартаменты', 'Гостевой дом', 'Хостел'];
 const CHECKIN = ['12:00', '13:00', '14:00'];
 const CHECKOUT = ['12:00', '13:00', '14:00'];
@@ -13,3 +15,18 @@ const OBJECT_COUNT = 10;
 const avatars = [];
 
 export {TITLE, CHECKIN, CHECKOUT, FEATURES, DESCRIPTION, PHOTOS, TYPES, OBJECT_COUNT, avatars};
+
+const newPopup = () => {
+  return {
+    title: getRandomElement(TITLE),
+    checkin: getRandomElement(CHECKIN),
+    checkout: getRandomElement(CHECKOUT),
+    features: getRandomElement(FEATURES),
+    description: getRandomElement(DESCRIPTION),
+    photos: getRandomElement(PHOTOS),
+    types: getRandomElement(TYPES),
+    avatar: getRandomElement(avatars),
+  };
+};
+
+export {newPopup};
