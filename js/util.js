@@ -47,7 +47,6 @@ function createRandomArray (myArrayRandom) {
 const getRandomElement = (myArray) => {
   const key = Math.floor(Math.random() * myArray.length);
   return myArray[key];
-  if (key = 0 ) {}
 };
 
 
@@ -80,6 +79,6 @@ const createObjectOffer = function (index) {
 };
 
 //Массив объектов
-new Array(OBJECT_COUNT).fill(null).map((value, i) => createObjectOffer(i));
+const newOffer = () => new Array(OBJECT_COUNT).fill(null).map((value, i) => createObjectOffer(i));
 
-export {getRandomNumber, getRandomNumeral, createRandomArray, getRandomElement, createObjectOffer};
+export {getRandomNumber, getRandomNumeral, createRandomArray, getRandomElement, createObjectOffer, newOffer};
