@@ -39,16 +39,10 @@ function createRandomArray (myArrayRandom) {
 
 //Функция генерации элемента
 
-/*const getRandomElement = function (myArray) {
-  const key = Math.floor(Math.random() * myArray.length);
-  return myArray[key];
-};*/
-
-const getRandomElement = (myArray) => {
+const getRandomElement = function (myArray) {
   const key = Math.floor(Math.random() * myArray.length);
   return myArray[key];
 };
-
 
 //Генерация объекта offer
 const createObjectOffer = function (index) {
@@ -60,7 +54,7 @@ const createObjectOffer = function (index) {
     },
     offer: {
       title: getRandomElement(TITLE),
-      address: `${lat}, ${lng}`,
+      address: `Широта${lat}, Долгота${lng}`,
       price: getRandomNumber (1000, 5000),
       types: getRandomElement(TYPES),
       rooms:  getRandomNumber (1, 5),

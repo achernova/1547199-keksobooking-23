@@ -12,8 +12,4 @@ const OBJECT_COUNT = 10;
 //author
 const avatars = [];
 
-for (let i = 0; i <= PHOTOS.length; i++){
-  PHOTOS[i];
-}
-
 export {TITLE, CHECKIN, CHECKOUT, FEATURES, DESCRIPTION, PHOTOS, TYPES, OBJECT_COUNT, avatars};
