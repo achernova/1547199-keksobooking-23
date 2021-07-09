@@ -54,7 +54,7 @@ const createObjectOffer = function (index) {
     },
     offer: {
       title: getRandomElement(TITLE),
-      address: `Широта${lat}, Долгота${lng}`,
+      address: `Широта ${lat}, Долгота ${lng}`,
       price: getRandomNumber (1000, 5000),
       types: getRandomElement(TYPES),
       rooms:  getRandomNumber (1, 5),
