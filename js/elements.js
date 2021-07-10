@@ -11,7 +11,7 @@ const similarPopupFragment = document.createDocumentFragment();
 newCard.forEach((card) => {
   const newCardElement = cardElement.cloneNode(true);
   newCardElement.querySelector('.popup__avatar').src = card.author.avatar;
-  if (!card.avatar) {
+  if (!card.author.avatar) {
     newCardElement.querySelector('.popup__avatar').classList.add('hidden');
   }
   newCardElement.querySelector('.popup__title').textContent = card.offer.title;
@@ -27,7 +27,7 @@ newCard.forEach((card) => {
     newCardElement.querySelector('.popup__text--price').classList.add('hidden');
   }
   newCardElement.querySelector('.popup__type').textContent = card.offer.types;
-  if (!card.offer.type) {
+  if (!card.offer.types) {
     newCardElement.querySelector('.popup__type').classList.add('hidden');
   }
   newCardElement.querySelector('.popup__text--capacity').textContent = `${card.offer.rooms} комнаты для ${card.offer.guests} гостей`;
@@ -58,6 +58,8 @@ newCard.forEach((card) => {
     const photoTag = document.createElement('img');
     photoTag.classList.add('popup__photos');
     photoTag.src = card.offer.photos[i];
+    photoTag.style.width = '100%';
+    photoTag.style.height = 'auto';
     newCardElement.querySelector('.popup__photos').appendChild(photoTag);
   }
   if (!card.offer.photos || card.offer.photos.length === 0) {
