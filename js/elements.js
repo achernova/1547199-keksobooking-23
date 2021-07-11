@@ -58,8 +58,8 @@ newCard.forEach((card) => {
     const photoTag = document.createElement('img');
     photoTag.classList.add('popup__photos');
     photoTag.src = card.offer.photos[i];
-    photoTag.style.width = '100%';
-    photoTag.style.height = 'auto';
+    photoTag.style.width = '45px';
+    photoTag.style.height = '40px';
     newCardElement.querySelector('.popup__photos').appendChild(photoTag);
   }
   if (!card.offer.photos || card.offer.photos.length === 0) {
