@@ -1,8 +1,8 @@
 const informForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
+let mapWindow = document.querySelector('.map');
 
 const getDisable = function () {
-  const mapWindow = document.querySelector('.map');
   mapWindow.style.backgroundColor = 'grey';
   const elementsForDisable = document.querySelectorAll('fieldset, select');
   for (let i = 0; i < elementsForDisable.length; i++) {
@@ -13,7 +13,7 @@ const getDisable = function () {
 };
 
 const getEnable = function () {
-  const  mymap = L.map('.map').setView([35.50000, 139.80000], 13);
+  mapWindow = L.map('.map').setView([35.50000, 139.80000], 13);
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
@@ -21,7 +21,7 @@ const getEnable = function () {
     tileSize: 512,
     zoomOffset: -1,
     accessToken: 'your.mapbox.access.token',
-  }).addTo(mymap);
+  }).addTo(mapWindow);
 
   const elementsForDisable = document.querySelectorAll('fieldset, select');
   for (let i = 0; i < elementsForDisable.length; i++) {
