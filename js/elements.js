@@ -1,14 +1,14 @@
-import {newOffer} from './util.js';
+import {createNewOffer} from './util.js';
 
 const cardElement = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
 const genMapCanvas = document.querySelector('#map-canvas');
-const newCard = newOffer();
+const newCards = createNewOffer();
 const similarPopupFragment = document.createDocumentFragment();
 
-newCard.forEach((card) => {
+newCards.forEach((card) => {
   const newCardElement = cardElement.cloneNode(true);
   newCardElement.querySelector('.popup__avatar').src = card.author.avatar;
   if (!card.author.avatar) {
@@ -38,7 +38,6 @@ newCard.forEach((card) => {
   if (!card.offer.checkin || !card.offer.checkout) {
     newCardElement.querySelector('.popup__text--time').classList.add('hidden');
   }
-  //newCardElement.querySelector('.popup__features') = card.offer.features;
   for (let i = 0; i < card.offer.features.length; i++){
     const featureTag = document.createElement('li');
     const className = `popup__feature--${card.offer.features[i]}`;
@@ -53,7 +52,6 @@ newCard.forEach((card) => {
   if (!card.offer.description || card.offer.description.length === 0) {
     newCardElement.querySelector('.popup__description').classList.add('hidden');
   }
-  /*newCardElement.querySelector('.popup__photos').src = card.offer.photos;*/
   for (let i = 0; i < card.offer.photos.length; i++){
     const photoTag = document.createElement('img');
     photoTag.classList.add('popup__photos');
@@ -69,11 +67,3 @@ newCard.forEach((card) => {
 });
 
 genMapCanvas.appendChild(similarPopupFragment);
-
-
-/* for (let i = 0; i <= PHOTOS.length; i++){
-    const photoTag = document.createElement('img');
-    photoTag.classList.add('popup__photos');
-    photoTag.src = PHOTOS[i];
-    newCardElement.querySelector('.popup__photos').appendChild(photoTag);
-  }*/
