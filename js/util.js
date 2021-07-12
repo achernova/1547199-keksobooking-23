@@ -5,7 +5,7 @@ for (let i = 1; i <= OBJECT_COUNT; i++) {(i < 10) ? avatars.push(`img/avatars/us
 }
 
 //Функции случайных чисел
-function getRandomNumber (min, max) {
+const getRandomNumber = (min, max) => {
   if (min > max || min === max) {
     return undefined;
   }
@@ -13,9 +13,9 @@ function getRandomNumber (min, max) {
   if (min >= 0 && max >= 0){
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-}
+};
 
-function getRandomNumeral (min, max, fixed) {
+const getRandomNumeral = (min, max, fixed) => {
   const randNumber = min + Math.random() * (max - min);
   if (min > max || min === max) {
     return undefined;
@@ -23,10 +23,10 @@ function getRandomNumeral (min, max, fixed) {
   if (min >= 0 && max >= 0) {
     return randNumber.toFixed(fixed);
   }
-}
+};
 
 //Функция рандомного массива
-function createRandomArray (myArrayRandom) {
+const createRandomArray = (myArrayRandom) => {
   const offerElements = [];
   const cloneArray = myArrayRandom.slice();
   const size = getRandomNumber(1, myArrayRandom.length);
@@ -35,17 +35,17 @@ function createRandomArray (myArrayRandom) {
     offerElements.push(elementArray);
   }
   return offerElements;
-}
+};
 
 //Функция генерации элемента
-
-const getRandomElement = function (myArray) {
+const getRandomElement = (myArray) => {
   const key = Math.floor(Math.random() * myArray.length);
   return myArray[key];
 };
 
+
 //Генерация объекта offer
-const createObjectOffer = function (index) {
+const createObjectOffer = (index) => {
   const lat = getRandomNumeral(35.50000, 35.70000, 5);
   const lng = getRandomNumeral(139.70000, 139.80000, 5);
   return {
@@ -73,6 +73,6 @@ const createObjectOffer = function (index) {
 };
 
 //Массив объектов
-const newOffer = () => new Array(OBJECT_COUNT).fill(null).map((value, i) => createObjectOffer(i));
+const createNewOffer = () => new Array(OBJECT_COUNT).fill(null).map((value, i) => createObjectOffer(i));
 
-export {getRandomNumber, getRandomNumeral, createRandomArray, getRandomElement, createObjectOffer, newOffer};
+export {getRandomNumber, getRandomNumeral, createRandomArray, getRandomElement, createObjectOffer, createNewOffer};
