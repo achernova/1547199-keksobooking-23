@@ -12,9 +12,13 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(mapWindow);
 
 const getDisable = () => {
-  const elementsForDisable = document.querySelectorAll('option, input, textarea');
-  for (let i = 0; i < elementsForDisable.length; i++) {
-    elementsForDisable[i].disable = true;
+  const elementsForDisableMap = mapFilters.querySelectorAll('map__filter', '.map__features');
+  const elementsForDisableForm = informForm.querySelectorAll('input, textarea');
+  for (let i = 0; i < elementsForDisableMap.length; i++) {
+    elementsForDisableMap[i].disable = true;
+  }
+  for (let i = 0; i < elementsForDisableForm.length; i++) {
+    elementsForDisableForm[i].disable = true;
   }
   informForm.classList.add('ad-form--disabled');
   mapFilters.classList.add('map__filters--disabled');
@@ -22,12 +26,17 @@ const getDisable = () => {
 };
 
 const getEnable = () => {
-  const elementsForDisable = document.querySelectorAll('fieldset, select');
-  for (let i = 0; i < elementsForDisable.length; i++) {
-    elementsForDisable[i].disable = false;
+  const elementsForDisableMap = mapFilters.querySelectorAll('map__filter', '.map__features');
+  const elementsForDisableForm = informForm.querySelectorAll('input, textarea');
+  for (let i = 0; i < elementsForDisableMap.length; i++) {
+    elementsForDisableMap[i].disable = false;
+  }
+  for (let i = 0; i < elementsForDisableForm.length; i++) {
+    elementsForDisableForm[i].disable = false;
   }
   informForm.classList.remove('ad-form--disabled');
   mapFilters.classList.remove('map__filters--disabled');
 };
 
 export {getDisable, getEnable};
+
