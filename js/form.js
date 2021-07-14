@@ -5,8 +5,18 @@ const informForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 //const mapWindow = document.querySelector('.map');
 const titleInput = document.querySelector('#title');
+const typeOfRooms = document.querySelector('#type');
+//const typeOfRoomsValue = typeOfRooms.querySelector('option');
 const priceInput = document.querySelector('#price');
-
+const roomNumber = document.querySelector('#room_number');
+const roomCapacity = document.querySelector('#capacity');
+const minPrices = {
+  'bungalow':0,
+  'flat':1000,
+  'hotel':3000,
+  'house':5000,
+  'palace':10000,
+};
 //const buttonSubmit = document.querySelector('.ad-form__submit');
 const mapLeaflet = L.map('mapid').setView([35.50000, 139.80000], 13);
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -52,7 +62,7 @@ titleInput.addEventListener('input', () => {
 });
 
 priceInput.addEventListener('input', () => {
-  const valuePrice = priceInput.value.length;
+  const valuePrice = Number(priceInput.value);
   if (valuePrice > MAX_PRICE_LENGTH){
     priceInput.setCustomValidity(`Удалите лишние${ valuePrice - MAX_PRICE_LENGTH} симв.`);
   }
@@ -62,27 +72,29 @@ priceInput.addEventListener('input', () => {
   priceInput.reportValidity();
 });
 
-const roomNumbers = document.querySelector('#room_number');
-const roomCapacity = document.querySelector('#capacity');
+roomNumber.addEventListener('change', () => {
+  const valueRoomNumber = parseInt(10, roomNumber.value);
+  const valueRoomCapacity = parseInt(10, roomCapacity.value);
+  if (valueRoomNumber === 100 && valueRoomCapacity !== 0){
+    roomNumber.setCustomValidity('не для гостей');
+  } else if (  valueRoomNumber < valueRoomCapacity){
+    roomNumber.setCustomValidity('Количество гостей превышает количество комнат');
+  }
+  else if (valueRoomNumber >= valueRoomCapacity){
+    roomNumber.setCustomValidity('');
+  }
+  roomNumber.reportValidity();
+});
 
-roomNumbers.addEventListener('change', () => {
-  const optionValue = this.value;
-  if (optionValue === '0') {
-    for (let i = 0; i < roomCapacity.children.length; i++) {
-      roomCapacity.children[i].disabled = true;
-    }
-    roomCapacity.children[roomCapacity.children.length - 1].disabled = false;
-    roomCapacity.children[roomCapacity.children.length - 1].disabled = true;
+typeOfRooms.addEventListener('change', () => {
+  const minPrice = minPrices[typeOfRooms.value];
+  priceInput.placeholder = minPrice;
+  priceInput.max = minPrice;
+  if (minPrice >  priceInput) {
+    typeOfRooms.setCustomValidity(`минимальная цена${minPrice}`);
   } else {
-    for (let i = 0; i < roomCapacity.children.length; i++) {
-      if (i < optionValue) {
-        roomCapacity.children[i].disabled = false;
-      } else {
-        roomCapacity.children[i].disabled = true;
-      }
-    }
-    roomCapacity.children[0].selected = true;}
-
+    typeOfRooms.reportValidity();
+  }
 });
 
 export {getDisable, getEnable};
