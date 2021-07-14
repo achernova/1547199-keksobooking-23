@@ -1,6 +1,5 @@
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
-const MAX_PRICE_LENGTH = 1000000;
 const informForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 //const mapWindow = document.querySelector('.map');
@@ -17,6 +16,8 @@ const minPrices = {
   'house':5000,
   'palace':10000,
 };
+const timeInInput = document.querySelector('#timein');
+const timeOutInput= document.querySelector('#timeout');
 //const buttonSubmit = document.querySelector('.ad-form__submit');
 const mapLeaflet = L.map('mapid').setView([35.50000, 139.80000], 13);
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -73,10 +74,15 @@ const onGuestsRoomChanged = () => {
   }
   roomNumber.reportValidity();
 };
+
 const validatePrice = () => {
   const minPrice = minPrices[typeOfRooms.value];
+  const valuePrice = Number(priceInput.value);
+  const ValuePriceMax = Number(priceInput.max);
   if (minPrice > Number(priceInput.value)) {
     priceInput.setCustomValidity(`минимальная цена${minPrice}`);
+  } else if (valuePrice > ValuePriceMax){
+    priceInput.setCustomValidity('Максимальная цена 1000000');
   } else {
     priceInput.setCustomValidity('');
   }
@@ -94,15 +100,14 @@ typeOfRooms.addEventListener('change', () => {
 
 priceInput.addEventListener('input', () => validatePrice());
 
-priceInput.addEventListener('input', () => {
-  const valuePrice = Number(priceInput.value);
-  if (valuePrice > MAX_PRICE_LENGTH){
-    priceInput.setCustomValidity(`Удалите лишние${ valuePrice - MAX_PRICE_LENGTH} симв.`);
-  }
-  else {
-    priceInput.setCustomValidity('');
-  }
-  priceInput.reportValidity();
+timeInInput.addEventListener('change', (evt) => {
+  const valueTime = evt.target.value;
+  timeOutInput.value = valueTime;
+});
+
+timeOutInput.addEventListener('change', (evt) => {
+  const valueTime = evt.target.value;
+  timeInInput.value = valueTime;
 });
 
 export {getDisable, getEnable};
