@@ -67,6 +67,8 @@ const onGuestsRoomChanged = () => {
   const valueRoomCapacity = Number(roomCapacity.value);
   if (valueRoomNumber === 100 && valueRoomCapacity !== 0) {
     roomNumber.setCustomValidity('не для гостей');
+  } else if (valueRoomCapacity === 0 && valueRoomNumber !== 100) {
+    roomNumber.setCustomValidity('Только для гостей');
   } else if (valueRoomNumber < valueRoomCapacity) {
     roomNumber.setCustomValidity('Количество гостей превышает количество комнат');
   } else {
