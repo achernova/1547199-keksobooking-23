@@ -61,6 +61,39 @@ titleInput.addEventListener('input', () => {
   titleInput.reportValidity();
 });
 
+const onGuestsRoomChanged = () => {
+  const valueRoomNumber = Number(roomNumber.value);
+  const valueRoomCapacity = Number(roomCapacity.value);
+  if (valueRoomNumber === 100 && valueRoomCapacity !== 0) {
+    roomNumber.setCustomValidity('не для гостей');
+  } else if (valueRoomNumber < valueRoomCapacity) {
+    roomNumber.setCustomValidity('Количество гостей превышает количество комнат');
+  } else {
+    roomNumber.setCustomValidity('');
+  }
+  roomNumber.reportValidity();
+};
+const validatePrice = () => {
+  const minPrice = minPrices[typeOfRooms.value];
+  if (minPrice > Number(priceInput.value)) {
+    priceInput.setCustomValidity(`минимальная цена${minPrice}`);
+  } else {
+    priceInput.setCustomValidity('');
+  }
+  priceInput.reportValidity();
+};
+
+roomNumber.addEventListener('change', onGuestsRoomChanged);
+roomCapacity.addEventListener('change', onGuestsRoomChanged);
+
+priceInput.placeholder = minPrices[typeOfRooms.value];
+typeOfRooms.addEventListener('change', () => {
+  priceInput.placeholder = minPrices[typeOfRooms.value];
+  validatePrice();
+});
+
+priceInput.addEventListener('input', () => validatePrice());
+
 priceInput.addEventListener('input', () => {
   const valuePrice = Number(priceInput.value);
   if (valuePrice > MAX_PRICE_LENGTH){
@@ -70,31 +103,6 @@ priceInput.addEventListener('input', () => {
     priceInput.setCustomValidity('');
   }
   priceInput.reportValidity();
-});
-
-roomNumber.addEventListener('change', () => {
-  const valueRoomNumber = parseInt(10, roomNumber.value);
-  const valueRoomCapacity = parseInt(10, roomCapacity.value);
-  if (valueRoomNumber === 100 && valueRoomCapacity !== 0){
-    roomNumber.setCustomValidity('не для гостей');
-  } else if (  valueRoomNumber < valueRoomCapacity){
-    roomNumber.setCustomValidity('Количество гостей превышает количество комнат');
-  }
-  else if (valueRoomNumber >= valueRoomCapacity){
-    roomNumber.setCustomValidity('');
-  }
-  roomNumber.reportValidity();
-});
-
-typeOfRooms.addEventListener('change', () => {
-  const minPrice = minPrices[typeOfRooms.value];
-  priceInput.placeholder = minPrice;
-  priceInput.max = minPrice;
-  if (minPrice >  priceInput) {
-    typeOfRooms.setCustomValidity(`минимальная цена${minPrice}`);
-  } else {
-    typeOfRooms.reportValidity();
-  }
 });
 
 export {getDisable, getEnable};
