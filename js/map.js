@@ -78,7 +78,7 @@ newCards.forEach((card) => {
   getHiddenData(card.offer.rooms, 'popup__text--capacity');
 
 
-  newCardElement.querySelector('.popup__text--time').textContent = `${card.offer.checkin},Заезд после ${card.offer.checkout}, выезд до`;
+  newCardElement.querySelector('.popup__text--time').textContent = `Заезд после${card.offer.checkin}, выезд до ${card.offer.checkout}`;
   getHiddenData(card.offer.checkin, 'popup__text--time');
 
   for (let i = 0; i < card.offer.features.length; i++){
