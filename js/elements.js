@@ -1,4 +1,4 @@
-import {createNewOffer} from './util.js';
+/*import {createNewOffer} from './util.js';
 
 const cardElement = document.querySelector('#card')
   .content
@@ -67,3 +67,6 @@ newCards.forEach((card) => {
 });
 
 genMapCanvas.appendChild(similarPopupFragment);
+
+export {newCards};
+*/

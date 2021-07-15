@@ -2,10 +2,8 @@ const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const informForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
-//const mapWindow = document.querySelector('.map');
 const titleInput = document.querySelector('#title');
 const typeOfRooms = document.querySelector('#type');
-//const typeOfRoomsValue = typeOfRooms.querySelector('option');
 const priceInput = document.querySelector('#price');
 const roomNumber = document.querySelector('#room_number');
 const roomCapacity = document.querySelector('#capacity');
@@ -18,16 +16,6 @@ const minPrices = {
 };
 const timeInInput = document.querySelector('#timein');
 const timeOutInput= document.querySelector('#timeout');
-//const buttonSubmit = document.querySelector('.ad-form__submit');
-const mapLeaflet = L.map('mapid').setView([35.50000, 139.80000], 13);
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-  maxZoom: 18,
-  id: 'mapbox/streets-v11',
-  tileSize: 512,
-  zoomOffset: -1,
-  accessToken: 'your.mapbox.access.token',
-}).addTo(mapLeaflet);
 
 const getDisable = () => {
   const elementsForDisable = document.querySelectorAll('option, input, textarea');
@@ -36,7 +24,6 @@ const getDisable = () => {
   }
   informForm.classList.add('ad-form--disabled');
   mapFilters.classList.add('map__filters--disabled');
-  mapLeaflet.disable = true;
 };
 
 const getEnable = () => {
