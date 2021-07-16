@@ -44,9 +44,6 @@ mainPinMarker.on('moveend', (evt) => {
   addressInput.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
-const removeMarkers = () => {
-  mainPinMarker.remove();
-};
 
 newCards.forEach((card) => {
   const balloonTemplate = document.querySelector('#card')
@@ -112,6 +109,8 @@ newCards.forEach((card) => {
 
 const markers = L.layerGroup();
 
+markers.remove();
+
 const createNewCards = (cards) => {
 
   cards.forEach((card) => {
@@ -140,4 +139,4 @@ const createNewCards = (cards) => {
 };
 
 createNewCards(newCards);
-export {newCards, removeMarkers, createNewCards};
+export {newCards, createNewCards};
