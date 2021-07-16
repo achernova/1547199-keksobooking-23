@@ -1,17 +1,27 @@
 import {getEnable} from './form.js';
 import {createNewOffer} from './util.js';
 
+const MAIN_TOKIO_COORDINATS_LAT = 35.67950;
+const MAIN_TOKIO_COORDINATS_LNG = 139.69171;
+const ZOOM = 10;
+const ICON_SIZE_BIG_WIDTH = 52;
+const ICON_SIZE_BIG_HEIGHT = 52;
+const ICON_SIZE_WIDTH = 40;
+const ICON_SIZE_HEIGHT = 40;
+
+const addressInput = document.querySelector('#address');
 const newCards = createNewOffer();
 
+addressInput.value = `${MAIN_TOKIO_COORDINATS_LAT}, ${MAIN_TOKIO_COORDINATS_LNG}`;
 const map = L.map('map-canvas')
   .on('load', () => {
     getEnable();
   })
 
   .setView({
-    lat: 35.67950,
-    lng: 139.69171,
-  }, 10);
+    lat: MAIN_TOKIO_COORDINATS_LAT,
+    lng: MAIN_TOKIO_COORDINATS_LNG,
+  }, ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -22,14 +32,14 @@ L.tileLayer(
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: [ICON_SIZE_BIG_WIDTH, ICON_SIZE_BIG_HEIGHT],
+  iconAnchor: [ICON_SIZE_BIG_WIDTH / 2, ICON_SIZE_BIG_WIDTH],
 });
 
 const mainPinMarker = L.marker(
   {
-    lat: 35.67950,
-    lng: 139.69171,
+    lat: MAIN_TOKIO_COORDINATS_LAT,
+    lng: MAIN_TOKIO_COORDINATS_LNG,
   },
   {
     draggable: true,
@@ -40,7 +50,6 @@ const mainPinMarker = L.marker(
 mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
-  const addressInput = document.querySelector('#address');
   addressInput.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
@@ -73,7 +82,6 @@ newCards.forEach((card) => {
 
   newCardElement.querySelector('.popup__text--capacity').textContent = `${card.offer.rooms} комнаты для ${card.offer.guests} гостей`;
   getHiddenData(card.offer.rooms, 'popup__text--capacity');
-
 
   newCardElement.querySelector('.popup__text--time').textContent = `Заезд после${card.offer.checkin}, выезд до ${card.offer.checkout}`;
   getHiddenData(card.offer.checkin, 'popup__text--time');
@@ -116,8 +124,8 @@ const createNewCards = (cards) => {
   cards.forEach((card) => {
     const icon = L.icon({
       iconUrl: 'img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
+      iconSize: [ICON_SIZE_WIDTH, ICON_SIZE_HEIGHT],
+      iconAnchor: [ICON_SIZE_WIDTH / 2, ICON_SIZE_WIDTH],
     });
     const marker = L.marker(
       {
