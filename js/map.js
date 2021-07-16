@@ -109,7 +109,7 @@ newCards.forEach((card) => {
 
 const markers = L.layerGroup();
 
-markers.remove();
+//markers.remove();
 
 const createNewCards = (cards) => {
 
