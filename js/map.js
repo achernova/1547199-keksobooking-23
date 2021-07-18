@@ -53,7 +53,6 @@ mainPinMarker.on('moveend', (evt) => {
   addressInput.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
-
 newCards.forEach((card) => {
   const balloonTemplate = document.querySelector('#card')
     .content
@@ -147,4 +146,4 @@ const createNewCards = (cards) => {
 };
 
 createNewCards(newCards);
-export {newCards, createNewCards};
+export {newCards, createNewCards, map};

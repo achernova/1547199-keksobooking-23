@@ -1,3 +1,7 @@
+//import {sendData} from './api.js';
+import {showError} from '.messages.js';
+import {DATA_SERVER_SEND} from './api.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const informForm = document.querySelector('.ad-form');
@@ -99,4 +103,33 @@ timeOutInput.addEventListener('change', (evt) => {
   timeInInput.value = valueTime;
 });
 
-export {getDisable, getEnable};
+const setUserFormSubmit = (onSuccess) => {
+  informForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const formData = new FormData(evt.target);
+
+    fetch(
+      DATA_SERVER_SEND,
+      {
+        method: 'POST',
+        body: formData,
+      },
+    )
+      .then((response) => {
+        if (response.ok) {
+          onSuccess();
+        } else {
+          showError('Не удалось отправить форму. Попробуйте ещё раз');
+        }
+      })
+      .catch(() => {
+        showError('Не удалось отправить форму. Попробуйте ещё раз');
+      });
+    /*sendData(
+      () => onSuccess(),
+      () => showError(),
+      new FormData(evt.target),
+    );*/
+  });
+};
+export {getDisable, getEnable, setUserFormSubmit};
