@@ -12,12 +12,12 @@ const OBJECT_COUNT = 10;
 //author
 const avatars = [];
 
-const DATA_SERVER_GET = 'https://23.javascript.pages.academy/keksobooking/data.';
+const DATA_SERVER_GET = 'https://23.javascript.pages.academy/keksobooking/data';
 const DATA_SERVER_SEND = 'https://23.javascript.pages.academy/keksobooking';
 
 const MAIN_TOKIO_COORDINATS_LAT = 35.67950;
 const MAIN_TOKIO_COORDINATS_LNG = 139.69171;
-const ZOOM = 10;
+const ZOOM = 13;
 const ICON_SIZE_BIG_WIDTH = 52;
 const ICON_SIZE_BIG_HEIGHT = 52;
 const ICON_SIZE_WIDTH = 40;

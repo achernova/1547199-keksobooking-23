@@ -1,5 +1,5 @@
 import {showMessage, showErrorMessage, showSuccessMessage} from './messages.js';
-import {createNewCards} from './map';
+import {createNewCards} from './map.js';
 import {DATA_SERVER_GET, DATA_SERVER_SEND} from './data.js';
 
 const form = document.querySelector('.ad-form');
@@ -11,7 +11,7 @@ fetch(DATA_SERVER_GET)
     return response.json();
   })
   .then((data) => {
-    createNewCards(data);
+    createNewCards(data.slice(0, 10));
   })
   .catch(() => {
     showErrorMessage();
