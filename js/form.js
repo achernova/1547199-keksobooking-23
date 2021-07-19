@@ -1,6 +1,10 @@
+import {MAIN_TOKIO_COORDINATS_LAT, MAIN_TOKIO_COORDINATS_LNG} from './data.js';
+import {setAddressInputValue} from './map.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const informForm = document.querySelector('.ad-form');
+//const formFieldsets = informForm.querySelectorAll('.ad-form__element');
 const mapFilters = document.querySelector('.map__filters');
 const titleInput = document.querySelector('#title');
 const typeOfRooms = document.querySelector('#type');
@@ -16,6 +20,7 @@ const minPrices = {
 };
 const timeInInput = document.querySelector('#timein');
 const timeOutInput= document.querySelector('#timeout');
+
 
 const getDisable = () => {
   const elementsForDisable = document.querySelectorAll('option, input, textarea');
@@ -99,4 +104,17 @@ timeOutInput.addEventListener('change', (evt) => {
   timeInInput.value = valueTime;
 });
 
-export {getDisable, getEnable};
+const resetForm = () => {
+  informForm.reset();
+  setAddressInputValue(MAIN_TOKIO_COORDINATS_LAT, MAIN_TOKIO_COORDINATS_LNG);
+  priceInput.placeholder = minPrices[typeOfRooms.value];
+  mapFilters.reset();
+};
+
+const setformReset = (cb) => {
+  informForm.addEventListener('reset', cb);
+};
+
+setformReset(() => resetForm());
+
+export {getDisable, getEnable, resetForm};

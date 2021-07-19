@@ -1,6 +1,7 @@
 import {showMessage, showErrorMessage, showSuccessMessage} from './messages.js';
 import {createNewCards} from './map.js';
 import {DATA_SERVER_GET, DATA_SERVER_SEND} from './data.js';
+import {resetForm} from './form.js';
 
 const form = document.querySelector('.ad-form');
 
@@ -33,6 +34,7 @@ form.addEventListener('submit', function(e){
     .then(() => {
       showSuccessMessage();
       this.reset();
+      resetForm();
     })
     .catch((error) => {
       if (400 === error.message) {

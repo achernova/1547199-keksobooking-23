@@ -5,7 +5,10 @@ import {MAIN_TOKIO_COORDINATS_LAT, MAIN_TOKIO_COORDINATS_LNG, ZOOM,ICON_SIZE_BIG
 const addressInput = document.querySelector('#address');
 const newCards = createNewOffer();
 
-addressInput.value = `${MAIN_TOKIO_COORDINATS_LAT}, ${MAIN_TOKIO_COORDINATS_LNG}`;
+const setAddressInputValue = () => {
+  addressInput.value = `${MAIN_TOKIO_COORDINATS_LAT}, ${MAIN_TOKIO_COORDINATS_LNG}`;
+};
+
 const map = L.map('map-canvas')
   .on('load', () => {
     getEnable();
@@ -46,7 +49,7 @@ mainPinMarker.on('moveend', (evt) => {
   addressInput.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
-newCards.forEach((card) => {
+const getPopup = (card) => {
   const balloonTemplate = document.querySelector('#card')
     .content
     .querySelector('.popup');
@@ -78,34 +81,36 @@ newCards.forEach((card) => {
   newCardElement.querySelector('.popup__text--time').textContent = `Заезд после${card.offer.checkin}, выезд до ${card.offer.checkout}`;
   getHiddenData(card.offer.checkin, 'popup__text--time');
 
-  for (let i = 0; i < card.offer.features.length; i++){
-    const featureTag = document.createElement('li');
-    const className = `popup__feature--${card.offer.features[i]}`;
-    featureTag.classList.add(className);
-    featureTag.classList.add('popup__feature');
-    newCardElement.querySelector('.popup__features').appendChild(featureTag);
-  }
-  if (!card.offer.features || card.offer.features.length === 0) {
+  if (card.offer.features && card.offer.features.length > 0) {
+    for (let i = 0; i < card.offer.features.length; i++){
+      const featureTag = document.createElement('li');
+      const className = `popup__feature--${card.offer.features[i]}`;
+      featureTag.classList.add(className);
+      featureTag.classList.add('popup__feature');
+      newCardElement.querySelector('.popup__features').appendChild(featureTag);
+    }
+  } else {
     newCardElement.querySelector('.popup__features').classList.add('hidden');
   }
 
   newCardElement.querySelector('.popup__description').textContent = card.offer.description;
   getHiddenData(card.offer.description, 'popup__description');
 
-  for (let i = 0; i < card.offer.photos.length; i++){
-    const photoTag = document.createElement('img');
-    photoTag.classList.add('popup__photos');
-    photoTag.src = card.offer.photos[i];
-    photoTag.style.width = '45px';
-    photoTag.style.height = '40px';
-    newCardElement.querySelector('.popup__photos').appendChild(photoTag);
-  }
-  if (!card.offer.photos || card.offer.photos.length === 0) {
+  if (card.offer.photos && card.offer.photos.length > 0) {
+    for (let i = 0; i < card.offer.photos.length; i++){
+      const photoTag = document.createElement('img');
+      photoTag.classList.add('popup__photos');
+      photoTag.src = card.offer.photos[i];
+      photoTag.style.width = '45px';
+      photoTag.style.height = '40px';
+      newCardElement.querySelector('.popup__photos').appendChild(photoTag);
+    }
+  } else {
     newCardElement.querySelector('.popup__photos').classList.add('hidden');
   }
 
-  card['html'] =newCardElement;
-});
+  return newCardElement;
+};
 
 const markers = L.layerGroup();
 
@@ -131,7 +136,8 @@ const createNewCards = (cards) => {
       });
     marker
       .addTo(markers)
-      .bindPopup(card['html'],
+      .bindPopup(
+        getPopup(card),
         {
           keepInView: true,
         });
@@ -140,4 +146,4 @@ const createNewCards = (cards) => {
   return createNewCards;
 };
 
-export {newCards, createNewCards,removeMarkers, map};
+export {newCards, createNewCards,removeMarkers, map, setAddressInputValue};
