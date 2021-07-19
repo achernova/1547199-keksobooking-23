@@ -1,27 +1,27 @@
 const ERROR_TIME = 5000;
 const mainBody = document.querySelector('main');
 
-
 const isEscEvent = (evt) => {
   evt.key === 'Escape' || evt.key === 'Esc';
 };
 
-const showError = (message) => {
-  const errorElement = document.createElement('div');
-  errorElement.style.zIndex = 100;
-  errorElement.style.position = 'absolute';
-  errorElement.style.left = 0;
-  errorElement.style.top = 0;
-  errorElement.style.right = 0;
-  errorElement.style.padding = '10px 3px';
-  errorElement.style.fontSize = '30px';
-  errorElement.style.textAlign = 'center';
-  errorElement.style.backgroundColor = 'white';
-  errorElement.textContent = message;
-  document.body.append(errorElement);
+const showMessage = (selector) => {
+  const templateElement = document.querySelector(selector).content;
+  const elementMessage = templateElement.querySelector('div.content').cloneNode(true);
+  document.body.appendChild(elementMessage);
+
+  document.addEventListener('keydown', () => {
+    if (isEscEvent) {
+      elementMessage.remove();
+    }
+  });
+
+  document.addEventListener('click', () => {
+    elementMessage.remove();
+  });
 
   setTimeout(() => {
-    errorElement.remove();
+    elementMessage.remove();
   }, ERROR_TIME);
 };
 
@@ -62,4 +62,4 @@ const showSuccessMessage = () => {
   });
 };
 
-export {showError, showErrorMessage, showSuccessMessage, isEscEvent};
+export {showMessage, showErrorMessage, showSuccessMessage, isEscEvent};

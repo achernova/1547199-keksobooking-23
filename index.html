@@ -231,6 +231,25 @@
       <button type="button" class="error__button">Попробовать снова</button>
     </div>
   </template>
+  <template id="from_server">
+    <div class="error content">
+      <p class="error__message">При загрузке данных с сервера произошла ошибка запроса. Попробуйте повторить запрос позже</p>
+      <button type="button" class="error__button">Закрыть</button>
+    </div>
+  </template>
+   <template id="to_server">
+    <div class="error content">
+      <p class="error__message">При загрузке данных на сервера произошла ошибка запроса. Попробуйте повторить запрос позже</p>
+      <button type="button" class="error__button">Закрыть</button>
+    </div>
+  </template>
+
+  <template id="required">
+    <div class="required content">
+      <p class="error__message">Вы заполнили не все обязательные поля</p>
+      <button type="button" class="error__button">Попробовать снова</button>
+    </div>
+  </template>
   <script src="leaflet/leaflet.js"></script>
 </body>
 </html>

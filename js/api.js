@@ -1,36 +1,45 @@
-//import {newCards} from './map.js';
-//import {setUserFormSubmit} from '.form.js';
-//import {showError, showErrorMessage, showSuccessMessage, isEscEvent} from './messages.js';
+import {showMessage, showErrorMessage, showSuccessMessage} from './messages.js';
+import {createNewCards} from './map';
+import {DATA_SERVER_GET, DATA_SERVER_SEND} from './data.js';
 
-const DATA_SERVER_GET = 'https://23.javascript.pages.academy/keksobooking/data.';
-const DATA_SERVER_SEND = 'https://23.javascript.pages.academy/keksobooking';
+const form = document.querySelector('.ad-form');
 
-const getData = (onSuccess) => {
-  fetch(DATA_SERVER_GET)
-    .then((response) => response.json())
-    .then((newCards) => {
-      onSuccess(newCards);
-    });
-};
+fetch(DATA_SERVER_GET)
+  .then((response) => {
+    if(!response.ok) {
+      throw new Error(response.status);}
+    return response.json();
+  })
+  .then((data) => {
+    createNewCards(data);
+  })
+  .catch(() => {
+    showErrorMessage();
+  });
 
-const sendData = (onSuccess, onFail, body) => {
-  fetch(
-    DATA_SERVER_SEND,
-    {
-      method: 'POST',
-      body,
-    },
-  )
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  fetch(DATA_SERVER_SEND, {
+    method: 'POST',
+    body: formData,
+  })
     .then((response) => {
-      if (response.ok) {
-        onSuccess();
-      } else {
-        onFail('Не удалось отправить форму. Попробуйте ещё раз');
+      if(!response.ok){
+        throw new Error(response.status);
       }
+      return response.json();
     })
-    .catch(() => {
-      onFail('Не удалось отправить форму. Попробуйте ещё раз');
+    .then(() => {
+      showSuccessMessage();
+      this.reset();
+    })
+    .catch((error) => {
+      if (400 === error.message) {
+        showMessage('#required');
+      }
+      else {
+        showMessage('#to_server');
+      }
     });
-};
-
-export {getData, sendData};
+});

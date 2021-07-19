@@ -1,13 +1,6 @@
 import {getEnable} from './form.js';
 import {createNewOffer} from './util.js';
-
-const MAIN_TOKIO_COORDINATS_LAT = 35.67950;
-const MAIN_TOKIO_COORDINATS_LNG = 139.69171;
-const ZOOM = 10;
-const ICON_SIZE_BIG_WIDTH = 52;
-const ICON_SIZE_BIG_HEIGHT = 52;
-const ICON_SIZE_WIDTH = 40;
-const ICON_SIZE_HEIGHT = 40;
+import {MAIN_TOKIO_COORDINATS_LAT, MAIN_TOKIO_COORDINATS_LNG, ZOOM,ICON_SIZE_BIG_WIDTH, ICON_SIZE_BIG_HEIGHT, ICON_SIZE_WIDTH, ICON_SIZE_HEIGHT} from './data.js';
 
 const addressInput = document.querySelector('#address');
 const newCards = createNewOffer();
@@ -116,7 +109,9 @@ newCards.forEach((card) => {
 
 const markers = L.layerGroup();
 
-//markers.remove();
+const removeMarkers = () => {
+  markers.remove();
+};
 
 const createNewCards = (cards) => {
 
@@ -145,5 +140,4 @@ const createNewCards = (cards) => {
   return createNewCards;
 };
 
-createNewCards(newCards);
-export {newCards, createNewCards, map};
+export {newCards, createNewCards,removeMarkers, map};
