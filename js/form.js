@@ -1,8 +1,8 @@
-import {MAIN_TOKIO_COORDINATS_LAT, MAIN_TOKIO_COORDINATS_LNG, MIN_TITLE_LENGTH, MAX_TITLE_LENGTH} from './data.js';
-import {setAddressInputValue} from './map.js';
+import {/*MAIN_TOKIO_COORDINATS_LAT, MAIN_TOKIO_COORDINATS_LNG*/ MIN_TITLE_LENGTH, MAX_TITLE_LENGTH} from './data.js';
+import {setAddressInputValue, setDefaultMarkerState, removeMarkers} from './map.js';
+import {getCardsOnMap} from './api.js';
 
 const informForm = document.querySelector('.ad-form');
-//const formFieldsets = informForm.querySelectorAll('.ad-form__element');
 const mapFilters = document.querySelector('.map__filters');
 const titleInput = document.querySelector('#title');
 const typeOfRooms = document.querySelector('#type');
@@ -102,17 +102,17 @@ timeOutInput.addEventListener('change', (evt) => {
   timeInInput.value = valueTime;
 });
 
+
 const resetForm = () => {
   informForm.reset();
-  setAddressInputValue(MAIN_TOKIO_COORDINATS_LAT, MAIN_TOKIO_COORDINATS_LNG);
+  setAddressInputValue();
+  setDefaultMarkerState();
   priceInput.placeholder = minPrices[typeOfRooms.value];
   mapFilters.reset();
+  removeMarkers();
+  getCardsOnMap();
 };
 
-const setformReset = (cb) => {
-  informForm.addEventListener('reset', cb);
-};
-
-setformReset(() => resetForm());
+informForm.addEventListener('reset', resetForm);
 
 export {getDisable, getEnable, resetForm};

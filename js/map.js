@@ -9,6 +9,8 @@ const setAddressInputValue = () => {
   addressInput.value = `${MAIN_TOKIO_COORDINATS_LAT}, ${MAIN_TOKIO_COORDINATS_LNG}`;
 };
 
+setAddressInputValue();
+
 const map = L.map('map-canvas')
   .on('load', () => {
     getEnable();
@@ -146,4 +148,10 @@ const createNewCards = (cards) => {
   return createNewCards;
 };
 
-export {newCards, createNewCards,removeMarkers, map, setAddressInputValue};
+const setDefaultMarkerState = () => {
+  const newLatLng = new L.LatLng(MAIN_TOKIO_COORDINATS_LAT, MAIN_TOKIO_COORDINATS_LNG);
+  mainPinMarker.setLatLng(newLatLng);
+  map.setView([MAIN_TOKIO_COORDINATS_LAT, MAIN_TOKIO_COORDINATS_LNG], ZOOM);
+};
+
+export {newCards, createNewCards, removeMarkers, map, setAddressInputValue, setDefaultMarkerState};

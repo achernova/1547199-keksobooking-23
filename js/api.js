@@ -1,10 +1,16 @@
-import {DATA_SERVER_GET, DATA_SERVER_SEND} from './data.js';
+import {DATA_SERVER_GET, DATA_SERVER_SEND, OBJECT_COUNT} from './data.js';
+import {createNewCards} from './map.js';
 import {resetForm} from './form.js';
 import {showMessage, showErrorMessage, showSuccessMessage} from './messages.js';
 import {renderCards} from './filter.js';
 
-
 const form = document.querySelector('.ad-form');
+
+let allCards;
+
+const getCardsOnMap = () => {
+  createNewCards(allCards.slice(0, OBJECT_COUNT));
+};
 
 fetch(DATA_SERVER_GET)
   .then((response) => {
@@ -13,6 +19,7 @@ fetch(DATA_SERVER_GET)
     return response.json();
   })
   .then((data) => {
+    allCards = data;
     renderCards(data);
   })
   .catch(() => {
@@ -46,3 +53,5 @@ form.addEventListener('submit', function(e){
       }
     });
 });
+
+export {getCardsOnMap};

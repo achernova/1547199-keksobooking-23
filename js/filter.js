@@ -1,12 +1,8 @@
-import {OBJECT_COUNT} from './data.js';
+import {OBJECT_COUNT, RERENDER_DELAY, LOW_PRICE, HIGH_PRICE, ANY_VALUE} from './data.js';
 import { getEnable } from './form.js';
 import {createNewCards, removeMarkers} from './map.js';
 import {debounce} from './utils/debounce.js';
 
-const RERENDER_DELAY = 500;
-const LOW_PRICE = 10000;
-const HIGH_PRICE = 50000;
-const ANY_VALUE = 'any';
 const FilterPrices = {
   low: 'low',
   middle: 'middle',
@@ -32,7 +28,7 @@ const filterPrice = (card) => {
     case FilterPrices.high:
       return card.offer.price >= HIGH_PRICE;
     case ANY_VALUE:
-      return false;
+      return true;
   }
 };
 
