@@ -1,4 +1,5 @@
-const ERROR_TIME = 5000;
+import {ERROR_TIME} from './data.js';
+
 const mainBody = document.querySelector('main');
 
 const isEscEvent = (evt) => {

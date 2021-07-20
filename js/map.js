@@ -115,7 +115,7 @@ const getPopup = (card) => {
 const markers = L.layerGroup();
 
 const removeMarkers = () => {
-  markers.remove();
+  markers.clearLayers();
 };
 
 const createNewCards = (cards) => {

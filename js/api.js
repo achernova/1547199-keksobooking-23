@@ -1,7 +1,7 @@
 import {DATA_SERVER_GET, DATA_SERVER_SEND} from './data.js';
 import {resetForm} from './form.js';
 import {showMessage, showErrorMessage, showSuccessMessage} from './messages.js';
-import {createNewCards} from './map.js';
+import {renderCards} from './filter.js';
 
 
 const form = document.querySelector('.ad-form');
@@ -13,7 +13,7 @@ fetch(DATA_SERVER_GET)
     return response.json();
   })
   .then((data) => {
-    createNewCards(data.slice(0, 10));
+    renderCards(data);
   })
   .catch(() => {
     showErrorMessage();

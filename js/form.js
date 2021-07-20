@@ -1,8 +1,6 @@
-import {MAIN_TOKIO_COORDINATS_LAT, MAIN_TOKIO_COORDINATS_LNG} from './data.js';
+import {MAIN_TOKIO_COORDINATS_LAT, MAIN_TOKIO_COORDINATS_LNG, MIN_TITLE_LENGTH, MAX_TITLE_LENGTH} from './data.js';
 import {setAddressInputValue} from './map.js';
 
-const MIN_TITLE_LENGTH = 30;
-const MAX_TITLE_LENGTH = 100;
 const informForm = document.querySelector('.ad-form');
 //const formFieldsets = informForm.querySelectorAll('.ad-form__element');
 const mapFilters = document.querySelector('.map__filters');
