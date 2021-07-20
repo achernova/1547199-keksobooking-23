@@ -1,6 +1,6 @@
-import {createNewCards} from './map.js';
 import {OBJECT_COUNT} from './data.js';
 import { getEnable } from './form.js';
+import {createNewCards} from './map.js';
 
 const RERENDER_DELAY = 500;
 const LOW_PRICE = 10000;

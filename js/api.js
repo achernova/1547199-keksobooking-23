@@ -1,7 +1,8 @@
-import {showMessage, showErrorMessage, showSuccessMessage} from './messages.js';
-import {createNewCards} from './map.js';
 import {DATA_SERVER_GET, DATA_SERVER_SEND} from './data.js';
 import {resetForm} from './form.js';
+import {showMessage, showErrorMessage, showSuccessMessage} from './messages.js';
+import {createNewCards} from './map.js';
+
 
 const form = document.querySelector('.ad-form');
 

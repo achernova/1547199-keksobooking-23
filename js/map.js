@@ -1,6 +1,6 @@
-import {getEnable} from './form.js';
-import {createNewOffer} from './util.js';
 import {MAIN_TOKIO_COORDINATS_LAT, MAIN_TOKIO_COORDINATS_LNG, ZOOM,ICON_SIZE_BIG_WIDTH, ICON_SIZE_BIG_HEIGHT, ICON_SIZE_WIDTH, ICON_SIZE_HEIGHT} from './data.js';
+import {createNewOffer} from './util.js';
+import {getEnable} from './form.js';
 
 const addressInput = document.querySelector('#address');
 const newCards = createNewOffer();
