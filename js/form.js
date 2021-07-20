@@ -105,7 +105,7 @@ timeOutInput.addEventListener('change', (evt) => {
 
 
 const resetForm = (e) => {
-  e.preventDefault;
+  e.preventDefault();
   informForm.reset();
   setDefaultMarkerState();
   priceInput.placeholder = minPrices[typeOfRooms.value];
