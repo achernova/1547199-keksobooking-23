@@ -5,11 +5,11 @@ import {getEnable} from './form.js';
 const addressInput = document.querySelector('#address');
 const newCards = createNewOffer();
 
-const setAddressInputValue = () => {
+const setValueAddress = () => {
   addressInput.value = `${MAIN_TOKIO_COORDINATS_LAT}, ${MAIN_TOKIO_COORDINATS_LNG}`;
 };
 
-setAddressInputValue();
+setValueAddress();
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -154,4 +154,4 @@ const setDefaultMarkerState = () => {
   map.setView([MAIN_TOKIO_COORDINATS_LAT, MAIN_TOKIO_COORDINATS_LNG], ZOOM);
 };
 
-export {newCards, createNewCards, removeMarkers, map, setAddressInputValue, setDefaultMarkerState};
+export {newCards, createNewCards, removeMarkers, map, setDefaultMarkerState, setValueAddress};
