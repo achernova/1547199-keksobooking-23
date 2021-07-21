@@ -1,9 +1,17 @@
 import {MAIN_TOKIO_COORDINATS_LAT, MAIN_TOKIO_COORDINATS_LNG, ZOOM,ICON_SIZE_BIG_WIDTH, ICON_SIZE_BIG_HEIGHT, ICON_SIZE_WIDTH, ICON_SIZE_HEIGHT} from './data.js';
-import {createNewOffer} from './util.js';
-import {getEnable} from './form.js';
+import {getEnableForm, getDisable} from './form.js';
+
+const HousingTypes = {
+  'bungalow': 'Бунгало',
+  'flat': 'Квартира',
+  'hotel': 'Отель',
+  'house': 'Дом',
+  'palace': 'Дворец',
+};
 
 const addressInput = document.querySelector('#address');
-const newCards = createNewOffer();
+
+getDisable();
 
 const setValueAddress = () => {
   addressInput.value = `${MAIN_TOKIO_COORDINATS_LAT}, ${MAIN_TOKIO_COORDINATS_LNG}`;
@@ -13,7 +21,7 @@ setValueAddress();
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    getEnable();
+    getEnableForm();
   })
 
   .setView({
@@ -74,7 +82,7 @@ const getPopup = (card) => {
   newCardElement.querySelector('.popup__text--price').textContent = `${card.offer.price}₽/ночь.`;
   getHiddenData(card.offer.price, 'popup__text--price');
 
-  newCardElement.querySelector('.popup__type').textContent = card.offer.types;
+  newCardElement.querySelector('.popup__type').textContent = HousingTypes[card.offer.type];
   getHiddenData(card.offer.type, 'popup__type');
 
   newCardElement.querySelector('.popup__text--capacity').textContent = `${card.offer.rooms} комнаты для ${card.offer.guests} гостей`;
@@ -154,4 +162,4 @@ const setDefaultMarkerState = () => {
   map.setView([MAIN_TOKIO_COORDINATS_LAT, MAIN_TOKIO_COORDINATS_LNG], ZOOM);
 };
 
-export {newCards, createNewCards, removeMarkers, map, setDefaultMarkerState, setValueAddress};
+export {createNewCards, removeMarkers, map, setDefaultMarkerState, setValueAddress};

@@ -1,7 +1,7 @@
 import {DATA_SERVER_GET, DATA_SERVER_SEND, OBJECT_COUNT} from './data.js';
 import {createNewCards} from './map.js';
 import {resetForm} from './form.js';
-import {showMessage, showErrorMessage, showSuccessMessage} from './messages.js';
+import {showErrorMessage, showSuccessMessage} from './messages.js';
 import {renderCards} from './filter.js';
 
 const form = document.querySelector('.ad-form');
@@ -15,7 +15,8 @@ const getCardsOnMap = () => {
 fetch(DATA_SERVER_GET)
   .then((response) => {
     if(!response.ok) {
-      throw new Error(response.status);}
+      throw new Error(response.status);
+    }
     return response.json();
   })
   .then((data) => {
@@ -40,17 +41,11 @@ form.addEventListener('submit', function(e){
       return response.json();
     })
     .then(() => {
-      showSuccessMessage();
-      this.reset();
       resetForm();
+      showSuccessMessage();
     })
-    .catch((error) => {
-      if (400 === error.message) {
-        showMessage('#required');
-      }
-      else {
-        showMessage('#to_server');
-      }
+    .catch(() => {
+      showErrorMessage();
     });
 });
 

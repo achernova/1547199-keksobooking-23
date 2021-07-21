@@ -1,5 +1,5 @@
 import {OBJECT_COUNT, RERENDER_DELAY, LOW_PRICE, HIGH_PRICE, ANY_VALUE} from './data.js';
-import { getEnable } from './form.js';
+import { getEnableFilters } from './form.js';
 import {createNewCards, removeMarkers} from './map.js';
 import {debounce} from './utils/debounce.js';
 
@@ -59,14 +59,9 @@ const getMapFilters = (cards) => {
   ));
 };
 
-const activateMapFilters = () => {
-  mapFilters.classList.remove('map__filters--disabled');
-  getEnable(mapFilters);
-};
-
 const renderCards = (cards) => {
   createNewCards(cards.slice(0, OBJECT_COUNT));
-  activateMapFilters();
+  getEnableFilters();
   getMapFilters(cards);
 };
 

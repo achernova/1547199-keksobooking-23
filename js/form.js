@@ -10,44 +10,53 @@ const priceInput = document.querySelector('#price');
 const roomNumber = document.querySelector('#room_number');
 const roomCapacity = document.querySelector('#capacity');
 
-const minPrices = {
-  'bungalow':0,
-  'flat':1000,
-  'hotel':3000,
-  'house':5000,
-  'palace':10000,
+const MinPrices = {
+  'bungalow': 0,
+  'flat': 1000,
+  'hotel': 3000,
+  'house': 5000,
+  'palace': 10000,
 };
 const timeInInput = document.querySelector('#timein');
-const timeOutInput= document.querySelector('#timeout');
+const timeOutInput = document.querySelector('#timeout');
 
 
 const getDisable = () => {
-  const elementsForDisable = document.querySelectorAll('option, input, textarea');
-  for (let i = 0; i < elementsForDisable.length; i++) {
-    elementsForDisable[i].disable = true;
+  const formElements = informForm.querySelectorAll('fieldset');
+  for (let i = 0; i < formElements.length; i++) {
+    formElements[i].disabled = true;
+  }
+  const filterElements = mapFilters.querySelectorAll('select, fieldset');
+  for (let i = 0; i < filterElements.length; i++) {
+    filterElements[i].disabled = true;
   }
   informForm.classList.add('ad-form--disabled');
   mapFilters.classList.add('map__filters--disabled');
 };
 
-const getEnable = () => {
-  const elementsForDisable = document.querySelectorAll('fieldset, select');
-  for (let i = 0; i < elementsForDisable.length; i++) {
-    elementsForDisable[i].disable = false;
+const getEnableForm = () => {
+  const formElements = informForm.querySelectorAll('fieldset');
+  for (let i = 0; i < formElements.length; i++) {
+    formElements[i].disabled = false;
   }
   informForm.classList.remove('ad-form--disabled');
   mapFilters.classList.remove('map__filters--disabled');
 };
 
+const getEnableFilters = () => {
+  const filterElements = mapFilters.querySelectorAll('select, fieldset');
+  for (let i = 0; i < filterElements.length; i++) {
+    filterElements[i].disabled = false;
+  }
+};
+
 titleInput.addEventListener('input', () => {
   const valueTitle = titleInput.value.length;
-  if (valueTitle < MIN_TITLE_LENGTH){
+  if (valueTitle < MIN_TITLE_LENGTH) {
     titleInput.setCustomValidity(`Еще${MIN_TITLE_LENGTH - valueTitle} симв.`);
-  }
-  else if (valueTitle > MAX_TITLE_LENGTH){
-    titleInput.setCustomValidity(`Удалите лишние${ valueTitle - MAX_TITLE_LENGTH} симв.`);
-  }
-  else {
+  } else if (valueTitle > MAX_TITLE_LENGTH) {
+    titleInput.setCustomValidity(`Удалите лишние${valueTitle - MAX_TITLE_LENGTH} симв.`);
+  } else {
     titleInput.setCustomValidity('');
   }
   titleInput.reportValidity();
@@ -69,12 +78,12 @@ const onGuestsRoomChanged = () => {
 };
 
 const validatePrice = () => {
-  const minPrice = minPrices[typeOfRooms.value];
+  const minPrice = MinPrices[typeOfRooms.value];
   const valuePrice = Number(priceInput.value);
   const ValuePriceMax = Number(priceInput.max);
   if (minPrice > Number(priceInput.value)) {
     priceInput.setCustomValidity(`минимальная цена${minPrice}`);
-  } else if (valuePrice > ValuePriceMax){
+  } else if (valuePrice > ValuePriceMax) {
     priceInput.setCustomValidity('Максимальная цена 1000000');
   } else {
     priceInput.setCustomValidity('');
@@ -85,37 +94,38 @@ const validatePrice = () => {
 roomNumber.addEventListener('change', onGuestsRoomChanged);
 roomCapacity.addEventListener('change', onGuestsRoomChanged);
 
-priceInput.placeholder = minPrices[typeOfRooms.value];
+priceInput.placeholder = MinPrices[typeOfRooms.value];
 typeOfRooms.addEventListener('change', () => {
-  priceInput.placeholder = minPrices[typeOfRooms.value];
+  priceInput.placeholder = MinPrices[typeOfRooms.value];
   validatePrice();
 });
 
 priceInput.addEventListener('input', () => validatePrice());
 
 timeInInput.addEventListener('change', (evt) => {
-  const valueTime = evt.target.value;
-  timeOutInput.value = valueTime;
+  timeOutInput.value = evt.target.value;
 });
 
 timeOutInput.addEventListener('change', (evt) => {
-  const valueTime = evt.target.value;
-  timeInInput.value = valueTime;
+  timeInInput.value = evt.target.value;
 });
 
 
-const resetForm = (e) => {
-  e.preventDefault();
+const resetForm = () => {
   informForm.reset();
   setDefaultMarkerState();
-  priceInput.placeholder = minPrices[typeOfRooms.value];
+  priceInput.placeholder = MinPrices[typeOfRooms.value];
   mapFilters.reset();
   removeMarkers();
   getCardsOnMap();
   setValueAddress();
 };
 
-informForm.addEventListener('reset', resetForm);
+informForm.querySelector('.ad-form__reset')
+  .addEventListener('click', (e) => {
+    e.preventDefault();
+    resetForm();
+  });
 
 
-export {getDisable, getEnable, resetForm};
+export {getDisable, getEnableForm, getEnableFilters, resetForm};
