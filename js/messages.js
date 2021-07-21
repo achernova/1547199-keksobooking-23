@@ -8,7 +8,7 @@ const successMessage = document.querySelector('#success').content
 const errorMessage = document.querySelector('#error').content
   .querySelector('.error').cloneNode(true);
 const serverErrorMessage = document.querySelector('#server__error').content
-  .querySelector('.server__error').cloneNode(true);
+  .querySelector('.error').cloneNode(true);
 
 const isEscEvent = (evt) => ESC_EVENTS.includes(evt.key);
 
@@ -50,14 +50,21 @@ const showErrorMessage = () => {
   });
 };
 
+const onEscKeyDownServerError = (evt) => {
+  if (isEscEvent(evt)) {
+    serverErrorMessage.remove();
+    document.removeEventListener('keydown', onEscKeyDownServerError);
+  }
+};
+
 const showServerErrorMessage = () => {
   mainBody.appendChild(serverErrorMessage);
 
-  document.addEventListener('keydown', onEscKeyDownError);
+  document.addEventListener('keydown', onEscKeyDownServerError);
 
   serverErrorMessage.addEventListener('click', () => {
     serverErrorMessage.remove();
   });
 };
 
-export {showErrorMessage, showSuccessMessage, showServerErrorMessage, isEscEvent};
+export {showErrorMessage, showSuccessMessage, showServerErrorMessage, isEscEvent, onEscKeyDownServerError};

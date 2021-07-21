@@ -93,8 +93,12 @@ const validatePrice = () => {
   priceInput.reportValidity();
 };
 
-roomNumber.addEventListener('change', guestsRoomChange);
-roomCapacity.addEventListener('change', guestsRoomChange);
+roomNumber.addEventListener('change', () => {
+  guestsRoomChange();
+});
+roomCapacity.addEventListener('change', () => {
+  guestsRoomChange();
+});
 
 roomNumber.addEventListener('change', () => {
   guestsRoomChange();
