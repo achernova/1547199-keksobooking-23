@@ -100,13 +100,6 @@ roomCapacity.addEventListener('change', () => {
   guestsRoomChange();
 });
 
-roomNumber.addEventListener('change', () => {
-  guestsRoomChange();
-});
-roomCapacity.addEventListener('change', () => {
-  guestsRoomChange();
-});
-
 priceInput.placeholder = MinPrices[typeOfRooms.value];
 typeOfRooms.addEventListener('change', () => {
   priceInput.placeholder = MinPrices[typeOfRooms.value];

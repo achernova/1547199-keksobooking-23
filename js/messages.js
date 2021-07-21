@@ -67,4 +67,4 @@ const showServerErrorMessage = () => {
   });
 };
 
-export {showErrorMessage, showSuccessMessage, showServerErrorMessage, isEscEvent, onEscKeyDownServerError};
+export {showErrorMessage, showSuccessMessage, showServerErrorMessage, isEscEvent};
