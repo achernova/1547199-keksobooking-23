@@ -62,7 +62,7 @@ titleInput.addEventListener('input', () => {
   titleInput.reportValidity();
 });
 
-const onGuestsRoomChanged = () => {
+const guestsRoomChange = () => {
   const valueRoomNumber = Number(roomNumber.value);
   const valueRoomCapacity = Number(roomCapacity.value);
   if (valueRoomNumber === 100 && valueRoomCapacity !== 0) {
@@ -75,6 +75,8 @@ const onGuestsRoomChanged = () => {
     roomNumber.setCustomValidity('');
   }
   roomNumber.reportValidity();
+
+  return roomNumber.checkValidity() && roomCapacity.checkValidity();
 };
 
 const validatePrice = () => {
@@ -91,8 +93,15 @@ const validatePrice = () => {
   priceInput.reportValidity();
 };
 
-roomNumber.addEventListener('change', onGuestsRoomChanged);
-roomCapacity.addEventListener('change', onGuestsRoomChanged);
+roomNumber.addEventListener('change', guestsRoomChange);
+roomCapacity.addEventListener('change', guestsRoomChange);
+
+roomNumber.addEventListener('change', () => {
+  guestsRoomChange();
+});
+roomCapacity.addEventListener('change', () => {
+  guestsRoomChange();
+});
 
 priceInput.placeholder = MinPrices[typeOfRooms.value];
 typeOfRooms.addEventListener('change', () => {
@@ -110,7 +119,6 @@ timeOutInput.addEventListener('change', (evt) => {
   timeInInput.value = evt.target.value;
 });
 
-
 const resetForm = () => {
   informForm.reset();
   setDefaultMarkerState();
@@ -127,5 +135,4 @@ informForm.querySelector('.ad-form__reset')
     resetForm();
   });
 
-
-export {getDisable, getEnableForm, getEnableFilters, resetForm};
+export {getDisable, getEnableForm, getEnableFilters, resetForm, guestsRoomChange};

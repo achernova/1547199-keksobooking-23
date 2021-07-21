@@ -1,7 +1,7 @@
 import {DATA_SERVER_GET, DATA_SERVER_SEND, OBJECT_COUNT} from './data.js';
 import {createNewCards} from './map.js';
-import {resetForm} from './form.js';
-import {showErrorMessage, showSuccessMessage} from './messages.js';
+import {resetForm, guestsRoomChange} from './form.js';
+import {showErrorMessage, showSuccessMessage, showServerErrorMessage} from './messages.js';
 import {renderCards} from './filter.js';
 
 const form = document.querySelector('.ad-form');
@@ -24,11 +24,14 @@ fetch(DATA_SERVER_GET)
     renderCards(data);
   })
   .catch(() => {
-    showErrorMessage();
+    showServerErrorMessage();
   });
 
 form.addEventListener('submit', function(e){
   e.preventDefault();
+  if (!guestsRoomChange()) {
+    return;
+  }
   const formData = new FormData(this);
   fetch(DATA_SERVER_SEND, {
     method: 'POST',
